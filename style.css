@@ -2,6 +2,7 @@
 html {
     height: 100%;
     font-family: 'Comfortaa', cursive, serif;
+    text-align: center;
 }
 
 body {
@@ -18,8 +19,7 @@ main {
 
 div {
     float: left;
-    height: 470px;
-    width: 23%;
+    height: 750px;
     padding: 0 10px;
 }
 
@@ -41,10 +41,12 @@ a:visited {
 
 #navbar ul {
     list-style: none;
+    padding: 12px;
+    text-align: right;
 }
 
 #navbar li {
-    padding-top: 12px;
+    padding: 6px 32px;
 }
 
 #current {
@@ -52,11 +54,44 @@ a:visited {
 }
 
 #content {
-    margin: 32px;
-    width: 43%;
+    margin: auto auto auto 256px;
+    width: 60%;
 }
 
-#content iframe,
-p {
+#content>iframe {
+    display: block;
     margin: 0 auto;
+}
+
+
+/* Year specific graph and table sizes */
+
+#graph2022 {
+    width: 1080px;
+    height: 750px;
+}
+
+#table2022 {
+    width: 835px;
+    height: 590px;
+}
+
+#graph2022h {
+    width: 1280px;
+    height: 750px;
+}
+
+#table2022h {
+    width: 735px;
+    height: 590px;
+}
+
+#graph2021 {
+    width: 1280px;
+    height: 750px;
+}
+
+#table2021 {
+    width: 1150px;
+    height: 590px;
 }
