@@ -1,3 +1,8 @@
-This is the code for a f1 graph site with the results of my f1 fantasy league, it also includes an archive on previous years.
+#f1 fantasy graphs
 
-It just uses iframe's from google drive to display the data. This is more a trial of Google sheets than it is web programming. 
+A basic website to view a history of previous years fantasy f1 results since the official site clears results year after year.
+
+The website is just pure HTML and CSS with iframes to Google Sheets for all the data. 
+
+Link to the website:
+https://sbthepotato.github.io/F1-Fantasy-Graphs/
