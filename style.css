@@ -85,6 +85,7 @@ a:hover {
 #content>h1 {
     margin-top: 0;
     padding-top: 32px;
+    text-transform: uppercase;
 }
 
 #content>iframe {
