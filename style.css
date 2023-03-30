@@ -61,9 +61,26 @@ body#index  table{
 	display: block;
 }
 
-table, th, td{
-	border: 1px solid;
+table {
 	border-collapse: collapse;
+}
+table td, table th {
+	border: 2px solid black;
+	padding: 10px 10px 0px 10px;
+}
+table tr:first-child th {
+	border-top: 0;
+}
+table tr:last-child td {
+	border-bottom: 0;
+}
+table tr td:first-child,
+table tr th:first-child {
+	border-left: 0;
+}
+table tr td:last-child,
+table tr th:last-child {
+	border-right: 0;
 }
 
 div.podium-wrapper{
@@ -71,29 +88,48 @@ div.podium-wrapper{
   display: table;
   clear: both;
 	position: relative;
+	width: 300px;
+	height: 60px;
 }
 
 div.podium-wrapper>div{
 	float: left;
+	text-align: center;
   width: 100px;
   overflow: visible;
-	display: flex;
 	align-items: flex-end;
+	display: block;
+	position: absolute;
+	bottom: 0;
+	width: 100px;
+	text-align: center;
+	white-space: nowrap;
 }
 
 div.podium-wrapper>div:nth-child(2){
 	background-color: gold;
-	height: 40px;
+	height: 50px;
+	left: 100px
+}
+
+div.podium-wrapper>div:nth-child(2):before {
+	content: "";
+	margin-left: -100%;
+}
+div.podium-wrapper>div:nth-child(2):after {
+	content: "";
+	margin-right: -100%;
 }
 
 div.podium-wrapper>div:nth-child(1){
 	background-color: silver;
-	height: 30px;
+	height: 35px;
 }
 
 div.podium-wrapper>div:nth-child(3){
 	background-color: #8C7853;
-	height: 20px;
+	height: 25px;
+	left: 200px
 }
 
 /* -------------- */
