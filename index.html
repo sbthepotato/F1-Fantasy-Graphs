@@ -2,107 +2,88 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>2022 League Results</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F1 Fantasy League Results</title>
 
-	<meta name="robots" content="noindex">
+  <meta name="robots" content="noindex">
 
-	<link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.min.js"
-		integrity="sha512-v3ygConQmvH0QehvQa6gSvTE2VdBZ6wkLOlmK7Mcy2mZ0ZF9saNbbk19QeaoTHdWIEiTlWmrwAL4hS8ElnGFbA=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.min.js"></script>
+  <script src="script.js"></script>
+
 </head>
 
-<body id="index">
-	<div class="content-wrapper">
+<body>
+  <section id="overview">
+    <h1>F1 Fantasy League results</h1>
 
-		<section id="index">
-			<h1>F1 Fantasy League results</h1>
+    <table>
+      <tr>
+        <th></th>
+        <th>Normal</th>
+        <th>Hardmode</th>
+      </tr>
+      <tr>
+        <td>2023</td>
+        <td>
+          <a href="javascript:showYear(2023, 'normal')">
+            IN PROGRESS
+          </a>
+        </td>
+        <td>
+          <a href="javascript:showYear(2023, 'hard')">
+            IN PROGRESS
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>2022</td>
+        <td>
+          <a href="javascript:showYear(2022, 'normal')">
+            <div class="podium-wrapper">
+              <div>Stephan</div>
+              <div>Julian</div>
+              <div>Maxi</div>
+            </div>
+          </a>
+        </td>
+        <td>
+          <a href="javascript:showYear(2022, 'hard')">
+            <div class="podium-wrapper">
+              <div>Hauke</div>
+              <div>Julian/Stephan</div>
+              <div>Audun</div>
+            </div>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>2021</td>
+        <td>
+          <a href="javascript:showYear(2021, 'normal')">
+            <div class="podium-wrapper">
+              <div>Stephan</div>
+              <div>Julian</div>
+              <div>Marcel</div>
+            </div>
+          </a>
+        </td>
+        <td></td>
+      </tr>
+    </table>
+  </section>
 
-			<table>
-				<tr>
-					<th></th>
-					<th>Normal</th>
-					<th>Hardmode</th>
-				</tr>
-				<tr>
-					<td>2023</td>
-					<td>
-						IN PROGRESS
-					</td>
-					<td>
-						IN PROGRESS
-					</td>
-				</tr>
-				<tr>
-					<td>2022</td>
-					<td>
-						<a href="/">
-							<div class="podium-wrapper">
-								<div>Stephan</div>
-								<div>Julian</div>
-								<div>Maxi</div>
-							</div>
-						</a>
-					</td>
-					<td>
-						<a href="/">
-							<div class="podium-wrapper">
-								<div>Hauke</div>
-								<div>Julian/Stephan</div>
-								<div>Audun</div>
-							</div>
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>2021</td>
-					<td>
-						<a href="/">
-							<div class="podium-wrapper">
-								<div>Stephan</div>
-								<div>Julian</div>
-								<div>Marcel</div>
-							</div>
-						</a>
-					</td>
-					<td></td>
-				</tr>
-			</table>
-		</section>
 
+  <section id="results">
 
-		<section>
-			<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+    <p>oi</p>
 
-			<script>
-			const xValues = [50,60,70,80,90,100,110,120,130,140,150];
-			const yValues = [7,8,8,9,9,9,10,11,14,14,15];
+    <table id="overview-table"></table>
 
-			new Chart("myChart", {
-				type: "line",
-				data: {
-					labels: xValues,
-					datasets: [{
-						fill: false,
-						lineTension: 0,
-						backgroundColor: "rgba(0,0,255,1.0)",
-						borderColor: "rgba(0,0,255,0.1)",
-						data: yValues
-					}]
-				},
-				options: {
-					legend: {display: false},
-					scales: {
-						yAxes: [{ticks: {min: 6, max:16}}],
-					}
-				}
-			});
-			</script>
-		</section>
-	</div>
+  </section>
 
 </body>
 

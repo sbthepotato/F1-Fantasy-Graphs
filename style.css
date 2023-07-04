@@ -2,22 +2,27 @@
 
 
 :root {
-	--black: #15151e;
-	--red: #e10600;
-	--white: #f5f5f5;
-	text-rendering: optimizeLegibility;
+  --black: #15151e;
+  --red: #e10600;
+  --white: #f5f5f5;
+  text-rendering: optimizeLegibility;
 }
 
 html {
-	font-family: 'Comfortaa', cursive, serif;
-	width: 100%;
-	font-smooth: always;
-	scroll-behavior: smooth;
-	text-align: center;
-	background: var(--white);
+  font-family: 'Comfortaa', cursive, serif;
+  width: 100%;
+  font-smooth: always;
+  scroll-behavior: smooth;
+  text-align: center;
+  background: var(--white);
 }
 
-body, nav, header, .content-wrapper, section, footer {
+body,
+nav,
+header,
+.content-wrapper,
+section,
+footer {
   display: flex;
 }
 
@@ -27,169 +32,120 @@ h2,
 h3,
 h4,
 p {
-	margin: 0;
-}
-
-body{
-	flex-direction: column;
+  margin: 0;
 }
 
 a {
-	text-decoration: none;
-	color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 a:visited {
-	color: inherit;
+  color: inherit;
 }
 
 a:hover {
-	text-decoration: underline;
+  text-decoration: underline;
 }
 
-.content-wrapper {
+body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
 /* ----------- */
-/* Intro Page */
+/* overview   */
 /* --------- */
-
-body#index  table{
-	display: block;
+#overview {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 table {
-	border-collapse: collapse;
-}
-table td, table th {
-	border: 2px solid black;
-	padding: 10px 10px 0px 10px;
-}
-table tr:first-child th {
-	border-top: 0;
-}
-table tr:last-child td {
-	border-bottom: 0;
-}
-table tr td:first-child,
-table tr th:first-child {
-	border-left: 0;
-}
-table tr td:last-child,
-table tr th:last-child {
-	border-right: 0;
+  display: block;
+  border-collapse: collapse;
 }
 
-div.podium-wrapper{
+table td,
+table th {
+  border: 2px solid black;
+  padding: 10px 10px 0px 10px;
+}
+
+table tr:first-child th {
+  border-top: 0;
+}
+
+table tr:last-child td {
+  border-bottom: 0;
+}
+
+table tr td:first-child,
+table tr th:first-child {
+  border-left: 0;
+}
+
+table tr td:last-child,
+table tr th:last-child {
+  border-right: 0;
+}
+
+div.podium-wrapper {
   content: "";
   display: table;
   clear: both;
-	position: relative;
-	width: 300px;
-	height: 60px;
+  position: relative;
+  width: 300px;
+  height: 60px;
 }
 
-div.podium-wrapper>div{
-	float: left;
-	text-align: center;
+div.podium-wrapper>div {
+  float: left;
+  text-align: center;
   width: 100px;
   overflow: visible;
-	align-items: flex-end;
-	display: block;
-	position: absolute;
-	bottom: 0;
-	width: 100px;
-	text-align: center;
-	white-space: nowrap;
+  align-items: flex-end;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  width: 100px;
+  text-align: center;
+  white-space: nowrap;
 }
 
-div.podium-wrapper>div:nth-child(2){
-	background-color: gold;
-	height: 50px;
-	left: 100px
+div.podium-wrapper>div:nth-child(2) {
+  background-color: gold;
+  height: 50px;
+  left: 100px
 }
 
 div.podium-wrapper>div:nth-child(2):before {
-	content: "";
-	margin-left: -100%;
+  content: "";
+  margin-left: -100%;
 }
+
 div.podium-wrapper>div:nth-child(2):after {
-	content: "";
-	margin-right: -100%;
+  content: "";
+  margin-right: -100%;
 }
 
-div.podium-wrapper>div:nth-child(1){
-	background-color: silver;
-	height: 35px;
+div.podium-wrapper>div:nth-child(1) {
+  background-color: silver;
+  height: 35px;
 }
 
-div.podium-wrapper>div:nth-child(3){
-	background-color: #8C7853;
-	height: 25px;
-	left: 200px
+div.podium-wrapper>div:nth-child(3) {
+  background-color: #8C7853;
+  height: 25px;
+  left: 200px
 }
 
-/* -------------- */
-/* Content style */
-/* ------------ */
-#content {
-	margin-left: 192px;
-	max-width: 1280px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+/* ---------- */
+/* results   */
+/* -------- */
+section#results {
+  color: red;
 }
 
-#content>* {
-	margin: 32px;
-}
-
-#content>h1 {
-	margin-top: 0;
-	padding-top: 32px;
-	text-transform: uppercase;
-}
-
-#content>iframe {
-	display: block;
-}
-
-#content p {
-	max-width: 720px;
-}
-
-/* ------------------------------------ */
-/* Year specific graph and table sizes */
-/* ---------------------------------- */
-#graph2022 {
-	width: 1080px;
-	height: 750px;
-}
-
-#table2022 {
-	width: 835px;
-	height: 590px;
-}
-
-#graph2022h {
-	width: 1280px;
-	height: 750px;
-}
-
-#table2022h {
-	width: 735px;
-	height: 590px;
-}
-
-#graph2021 {
-	width: 1280px;
-	height: 750px;
-}
-
-#table2021 {
-	width: 1150px;
-	height: 590px;
-}
