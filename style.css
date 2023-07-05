@@ -3,13 +3,13 @@
 
 :root {
   --black: #15151e;
-  --red: #e10600;
+  --red: 225, 6, 0;
   --white: #f5f5f5;
-  text-rendering: optimizeLegibility;
 }
 
 html {
   font-family: 'Comfortaa', cursive, serif;
+  text-rendering: optimizeLegibility;
   width: 100%;
   font-smooth: always;
   scroll-behavior: smooth;
@@ -22,6 +22,7 @@ nav,
 header,
 .content-wrapper,
 section,
+canvas,
 footer {
   display: flex;
 }
@@ -54,45 +55,50 @@ body {
   justify-content: center;
 }
 
-/* ----------- */
-/* overview   */
-/* --------- */
-#overview {
+section {
+  margin: 10px 0px 50px 0px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-table {
+/* ----------- */
+/* overview   */
+/* --------- */
+section#overview {
+
+}
+
+section#overview table {
   display: block;
   border-collapse: collapse;
 }
 
-table td,
-table th {
+section#overview table td,
+section#overview table th {
   border: 2px solid black;
   padding: 10px 10px 0px 10px;
 }
 
-table tr:first-child th {
+section#overview table tr:first-child th {
   border-top: 0;
 }
 
-table tr:last-child td {
+section#overview table tr:last-child td {
   border-bottom: 0;
 }
 
-table tr td:first-child,
-table tr th:first-child {
+section#overview table tr td:first-child,
+section#overview table tr th:first-child {
   border-left: 0;
 }
 
-table tr td:last-child,
-table tr th:last-child {
+section#overview table tr td:last-child,
+section#overview table tr th:last-child {
   border-right: 0;
 }
 
-div.podium-wrapper {
+section#overview div.podium-wrapper {
   content: "";
   display: table;
   clear: both;
@@ -101,7 +107,7 @@ div.podium-wrapper {
   height: 60px;
 }
 
-div.podium-wrapper>div {
+section#overview div.podium-wrapper>div {
   float: left;
   text-align: center;
   width: 100px;
@@ -115,37 +121,53 @@ div.podium-wrapper>div {
   white-space: nowrap;
 }
 
-div.podium-wrapper>div:nth-child(2) {
+section#overview div.podium-wrapper>div:nth-child(2) {
   background-color: gold;
   height: 50px;
   left: 100px
 }
 
-div.podium-wrapper>div:nth-child(2):before {
+section#overview div.podium-wrapper>div:nth-child(2):before {
   content: "";
   margin-left: -100%;
 }
 
-div.podium-wrapper>div:nth-child(2):after {
+section#overview div.podium-wrapper>div:nth-child(2):after {
   content: "";
   margin-right: -100%;
 }
 
-div.podium-wrapper>div:nth-child(1) {
+section#overview div.podium-wrapper>div:nth-child(1) {
   background-color: silver;
   height: 35px;
 }
 
-div.podium-wrapper>div:nth-child(3) {
+section#overview div.podium-wrapper>div:nth-child(3) {
   background-color: #8C7853;
   height: 25px;
   left: 200px
 }
 
+
 /* ---------- */
 /* results   */
 /* -------- */
 section#results {
-  color: red;
+  
+}
+
+section#results table td,
+section#results table th {
+  border: 2px solid black;
+  padding: 10px 10px 0px 10px;
+}
+
+
+section#results table {
+  display: block;
+  border-spacing: 0;
+  border-collapse: collapse;
+  overflow: hidden;
+  background-color: var(--white);
 }
 
