@@ -1,8 +1,7 @@
-$(document).ready(function () {
-  console.log('hehe xd');
-});
 
-
+/**
+* the color rotation for graphs
+*/
 const colors = [
   '#FF0000',  // Red
   '#FFA500',  // Orange
@@ -23,15 +22,9 @@ const colors = [
 ];
 
 
-const options = {
-  scales: {
-    y: {
-        min: 0
-    }
-  }
-};
-
-
+/**
+* read a csv file and turn it into an array
+*/
 function readAndParseCSV(year, mode) {
   return fetch('results/' + year + '-' + mode + '.csv')
     .then(response => response.text())
@@ -50,8 +43,11 @@ function readAndParseCSV(year, mode) {
 }
 
 
-function createOverviewTable(data) {
-  let table = document.getElementById('overview-table');
+/**
+* create a html table
+*/
+function createHTMLTable(data, tableName) {
+  let table = document.getElementById(tableName);
   table.innerHTML = '';
 
   data.forEach((row, i) => {
@@ -64,6 +60,9 @@ function createOverviewTable(data) {
 }
 
 
+/**
+* rotate array of array so that x becomes y and y becomes x
+*/
 function rotateData(data) {
   const dataRotated = [];
   const dataLen = data[0].length;
@@ -79,12 +78,54 @@ function rotateData(data) {
 }
 
 
-function plotPointsPerRace(data) {
+/**
+* Get the median of an array
+*/
+function getMedian(array) {
+  const sortedArray = array.sort((a, b) => a - b);
+
+  const middleIndex = Math.floor(sortedArray.length / 2);
+
+  if (sortedArray.length % 2 === 1) {
+    return sortedArray[middleIndex];
+  } else {
+    return (sortedArray[middleIndex - 1] + sortedArray[middleIndex]) / 2;
+  }
+}
+
+
+/**
+* give the average and median of a persons results
+*/
+function aggregateStats(data) {
+  aggregateData = [];
+
+  data.forEach((person, i) => {
+    aggregateData.push(person[0]);
+
+    person.slice(1);
+
+    let sum = 0;
+    let length = person.length;
+    person.forEach((score, _) => {
+      sum += score;
+    });
+
+    aggregateData.push(sum / length);
+    aggregateData.push(getMedian(person));
+  });
+
+}
+
+
+/**
+* plot a given dataset into a line graph
+*/
+function plotData(data, plotName) {
   try {
-    const chart = Chart.getChart("pointsPerRace");
+    const chart = Chart.getChart(plotName);
     chart.destroy();
   } catch {
-
   }
 
   const xValues = data[0].slice(1);
@@ -103,25 +144,38 @@ function plotPointsPerRace(data) {
     })
   });
 
-  chart = new Chart("pointsPerRace", {
+  chart = new Chart(plotName, {
     type: "line",
     data: {
       labels: xValues,
       datasets: datasetValue
     },
-    options: options
+    options: {
+      scales: {
+        y: {
+          min: 0
+        }
+      }
+    }
   });
 }
 
 
+/**
+* show the graphs and tables for a given year and mode of data
+*/
 function showYear(year, mode) {
   data = readAndParseCSV(year, mode)
     .then(data => {
-      createOverviewTable(data);
+      createHTMLTable(data, 'overview-table');
 
       data = rotateData(data);
 
-      plotPointsPerRace(data);
+      plotData(data, 'pointsPerRace');
+
+      aggData = aggregateStats(data);
+
+      
 
     });
 }
