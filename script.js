@@ -44,36 +44,39 @@ function readAndParseCSV(year, mode) {
 
 
 /**
-* create a html table
-*/
-function createHTMLTable(data, tableName) {
-  let table = document.getElementById(tableName);
-  table.innerHTML = '';
-
-  data.forEach((row, i) => {
-    const htmlRow = table.insertRow(i);
-    row.forEach((cell, j) => {
-      const htmlCell = htmlRow.insertCell(j);
-      htmlCell.innerHTML = cell;
+ * Turn the data into floats, skips the text rows
+ */
+function parseFloats(data) {
+  data.forEach((person, i) => {
+    if (i == 0) {
+      return;
+    }
+    person.forEach((score, j) => {
+      if (j === 0) {
+      } else {
+        // if score is empty it returns null, if its not empty it either returns score as float or the score if score is NaN
+        data[i][j] = score ? (isNaN(parseFloat(score)) ? score : parseFloat(score)) : null;
+      }
     });
   });
 }
 
 
 /**
-* rotate array of array so that x becomes y and y becomes x
+* transpose array of array so that x becomes y and y becomes x
 */
-function rotateData(data) {
+function transposeData(data) {
   const dataRotated = [];
   const dataLen = data[0].length;
 
   for (let i = 0; i < dataLen; i++) {
-    const newArray = [];
+    const tempArray = [];
     data.forEach((_, j) => {
-      newArray.push(data[j][i]);
+      tempArray.push(data[j][i]);
     });
-    dataRotated.push(newArray);
+    dataRotated.push(tempArray);
   }
+
   return dataRotated;
 }
 
@@ -98,23 +101,68 @@ function getMedian(array) {
 * give the average and median of a persons results
 */
 function aggregateStats(data) {
-  aggregateData = [];
-
   data.forEach((person, i) => {
-    aggregateData.push(person[0]);
+    if (i == 0) {
+      data[i].push('Average');
+      data[i].push('Median');
+    } else {
+      person = person.slice(1);
 
-    person.slice(1);
+      let sum = 0;
+      let length = person.length;
+      person.forEach((score, _) => {
+        sum += score;
+      });
 
-    let sum = 0;
-    let length = person.length;
-    person.forEach((score, _) => {
-      sum += score;
-    });
-
-    aggregateData.push(sum / length);
-    aggregateData.push(getMedian(person));
+      data[i].push((sum / length).toFixed(1));
+      data[i].push(getMedian(person).toFixed(1));
+    }
   });
 
+  return data;
+}
+
+
+/**
+* creates an array with the total points of each person 
+*/
+function totalPoints(data) {
+  dataTotals = [];
+
+  data.forEach((person, i) => {
+    let tempArray = [];
+    if (i == 0) {
+      tempArray = person;
+    } else {
+      person.forEach((score, j) => {
+        if (j == 0 || j == 1) {
+          tempArray.push(score);
+        } else {
+          tempArray.push(score + tempArray[j - 1]);
+        }
+      });
+    }
+    dataTotals.push(tempArray);
+  });
+
+  return dataTotals;
+}
+
+
+/**
+* create a html table
+*/
+function createHTMLTable(data, tableName) {
+  let table = document.getElementById(tableName);
+  table.innerHTML = '';
+
+  data.forEach((row, i) => {
+    const htmlRow = table.insertRow(i);
+    row.forEach((cell, j) => {
+      const htmlCell = htmlRow.insertCell(j);
+      htmlCell.innerHTML = cell;
+    });
+  });
 }
 
 
@@ -129,8 +177,8 @@ function plotData(data, plotName) {
   }
 
   const xValues = data[0].slice(1);
-  const datasetValue = []
-  data = data.slice(1)
+  const datasetValue = [];
+  data = data.slice(1);
 
   data.forEach((person, i) => {
     const name = person[0]
@@ -167,15 +215,20 @@ function plotData(data, plotName) {
 function showYear(year, mode) {
   data = readAndParseCSV(year, mode)
     .then(data => {
-      createHTMLTable(data, 'overview-table');
-
-      data = rotateData(data);
+      parseFloats(data);
 
       plotData(data, 'pointsPerRace');
 
-      aggData = aggregateStats(data);
+      dataTotals = totalPoints(data);
+      dataTotals = transposeData(dataTotals);
+      createHTMLTable(dataTotals, 'totals-table');
 
-      
+      dataTotals = transposeData(dataTotals);
+      plotData(dataTotals, 'totalPoints');
+
+      data = aggregateStats(data);
+      data = transposeData(data);
+      createHTMLTable(data, 'overview-table');
 
     });
 }
