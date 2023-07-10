@@ -8,6 +8,7 @@
 
   <meta name="robots" content="noindex">
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="style.css">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js" integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> 
@@ -79,18 +80,18 @@
 
   <section id="results">
 
-    <table id="overview-table"></table>
+    <h1>points per race &nbsp; &nbsp; <i id="switch-points-per-race" onclick="switchDisplay('points-per-race', 'table')" class="fa-solid fa-table"></i></h1>
+    <table id="points-per-race-table"></table>
 
-    <canvas id="pointsPerRace" style="width:100%;max-width:75vw"></canvas>
+    <canvas id="points-per-race-graph"></canvas>
 
-    <table id="totals-table"></table>
+    <h1>points over the season &nbsp; &nbsp; <i id="switch-total-points" onclick="switchDisplay('total-points', 'table')" class="fa-solid fa-table"></i></h1>
+    <table id="total-points-table"></table>
 
-    <canvas id="totalPoints" style="width:100%;max-width:75vw"></canvas>
+    <canvas id="total-points-graph"></canvas>
 
   </section>
 
 </body>
-
-<script>showYear(2022, 'normal')</script>
 
 </html>

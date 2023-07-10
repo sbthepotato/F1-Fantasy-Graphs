@@ -1,3 +1,7 @@
+$(document).ready(function() {
+  showYear(2022, 'normal');
+});
+
 
 /**
 * the color rotation for graphs
@@ -18,7 +22,7 @@ const colors = [
   '#FFD700',  // Gold
   '#00FF00',  // Lime
   '#00FFFF',  // Cyan
-  '#000080'   // Navy
+  '#FFFFFF'   // White
 ];
 
 
@@ -86,7 +90,6 @@ function transposeData(data) {
 */
 function getMedian(array) {
   const sortedArray = array.sort((a, b) => a - b);
-
   const middleIndex = Math.floor(sortedArray.length / 2);
 
   if (sortedArray.length % 2 === 1) {
@@ -163,6 +166,30 @@ function createHTMLTable(data, tableName) {
       htmlCell.innerHTML = cell;
     });
   });
+
+  table.rows[0].cells[0].innerHTML = '<i class="fa-solid fa-arrows-rotate"></i>';
+}
+
+
+/**
+ * Changes the display between showing a table and showing a graph
+ */
+function switchDisplay(section, newSet) {
+  switchButton = document.getElementById('switch-' + section);
+  table = document.getElementById(section+'-table');
+  canvas = document.getElementById(section+'-graph');
+
+  if (newSet === 'table'){
+    switchButton.className = 'fa-solid fa-chart-line';
+    switchButton.onclick = function(){switchDisplay(section, 'graph')};
+    table.style.display = 'block';
+    canvas.style.display = 'none';
+  } else {
+    switchButton.className = 'fa-solid fa-table';
+    switchButton.onclick = function(){switchDisplay(section, 'table')};
+    table.style.display = 'none';
+    canvas.style.display = 'block';
+  }
 }
 
 
@@ -217,18 +244,18 @@ function showYear(year, mode) {
     .then(data => {
       parseFloats(data);
 
-      plotData(data, 'pointsPerRace');
+      plotData(data, 'points-per-race-graph');
 
       dataTotals = totalPoints(data);
       dataTotals = transposeData(dataTotals);
-      createHTMLTable(dataTotals, 'totals-table');
+      createHTMLTable(dataTotals, 'total-points-table');
 
       dataTotals = transposeData(dataTotals);
-      plotData(dataTotals, 'totalPoints');
+      plotData(dataTotals, 'total-points-graph');
 
       data = aggregateStats(data);
       data = transposeData(data);
-      createHTMLTable(data, 'overview-table');
+      createHTMLTable(data, 'points-per-race-table');
 
     });
 }
