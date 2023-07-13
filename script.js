@@ -1,7 +1,11 @@
 $(document).ready(function() {
   window.data = {};
+  window.rotatePointsPerRace = true;
+  window.rotateTotalPoints = true;
+  window.currentYear = 2022;
+  window.currentMode = 'normal';
 
-  showYear(2022, 'normal');
+  loadYear();
 });
 
 
@@ -108,10 +112,12 @@ function getMedian(array) {
 * give the average and median of a persons results
 */
 function aggregateStats(array) {
-  array.forEach((person, i) => {
+  let retArray = array.map((person) => person.slice());
+
+  retArray.forEach((person, i) => {
     if (i == 0) {
-      array[i].push('Average');
-      array[i].push('Median');
+      retArray[i].push('Average');
+      retArray[i].push('Median');
     } else {
       person = person.slice(1);
 
@@ -121,12 +127,12 @@ function aggregateStats(array) {
         sum += score;
       });
 
-      array[i].push((sum / length).toFixed(1));
-      array[i].push(getMedian(person).toFixed(1));
+      retArray[i].push((sum / length).toFixed(1));
+      retArray[i].push(getMedian(person).toFixed(1));
     }
   });
 
-  return array;
+  return retArray;
 }
 
 
@@ -134,7 +140,7 @@ function aggregateStats(array) {
 * creates an array with the total points of each person 
 */
 function totalPoints(array) {
-  arrayTotals = [];
+  retArray = [];
 
   array.forEach((person, i) => {
     let tempArray = [];
@@ -149,21 +155,23 @@ function totalPoints(array) {
         }
       });
     }
-    arrayTotals.push(tempArray);
+    retArray.push(tempArray);
   });
 
-  return arrayTotals;
+  return retArray;
 }
 
 
 /**
 * create a html table
 */
-function createHTMLTable(array, tableName) {
-  let table = document.getElementById(tableName);
+function createHTMLTable(year, mode, section) {
+  let data = window.data[mode+year+section];
+
+  let table = document.getElementById(section+'_table');
   table.innerHTML = '';
 
-  array.forEach((row, i) => {
+  data.forEach((row, i) => {
     const htmlRow = table.insertRow(i);
     row.forEach((cell, j) => {
       const htmlCell = htmlRow.insertCell(j);
@@ -215,7 +223,7 @@ function plotData(year, mode, section) {
   } catch {
   }
 
-  data = window.data[mode+year+section];
+  let data = window.data[mode+year+section];
 
   const xValues = data[0].slice(1);
   const datasetValue = [];
@@ -249,29 +257,36 @@ function plotData(year, mode, section) {
   });
 }
 
+function setYear(year, mode) {
+  window.currentYear = year;
+  window.currentMode = mode;
+
+  loadYear;
+}
+
 
 /**
 * show the graphs and tables for a given year and mode of data
 */
-function showYear(year, mode) {
+function loadYear() {
+  year = window.currentYear;
+  mode = window.currentMode;
+
   data = readAndParseCSV(year, mode)
     .then(data => {
       window.data[mode+year+'points_per_race'] = parseFloats(data);
 
-
       window.data[mode+year+'total_points'] = totalPoints(window.data[mode+year+'points_per_race']);
       window.data[mode+year+'total_points_trans'] = transposeData(window.data[mode+year+'total_points']);
 
-
-      //window.data[mode+year+'points_per_race_agg'] = aggregateStats(window.data[mode+year+'points_per_race']);
-      //window.data[mode+year+'points_per_race_agg_trans'] = transposeData(window.data[mode+year+'points_per_race_agg']);
-
+      window.data[mode+year+'points_per_race_agg'] = aggregateStats(window.data[mode+year+'points_per_race']);
+      window.data[mode+year+'points_per_race_agg_trans'] = transposeData(window.data[mode+year+'points_per_race_agg']);
 
       plotData(year, mode,'points_per_race');
-      //createHTMLTable(window.data[mode+year+'points_per_race_agg_trans'], 'points_per_race_table');
+      createHTMLTable(year, mode,'points_per_race');
 
-      plotData(year, mode, 'points-per-race');
-      //createHTMLTable(window.data[mode+year+'total_points_trans'], 'total_points_table');
+      plotData(year, mode, 'total_points');
+      createHTMLTable(year, mode,'total_points');
 
     });
 }
