@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  window.data = {};
+
   showYear(2022, 'normal');
 });
 
@@ -32,8 +34,8 @@ const colors = [
 function readAndParseCSV(year, mode) {
   return fetch('results/' + year + '-' + mode + '.csv')
     .then(response => response.text())
-    .then(data => {
-      const lines = data.split('\n');
+    .then(array => {
+      const lines = array.split('\n');
       let result = [];
       lines.forEach((line) => {
         const row = line.split(',');
@@ -48,10 +50,10 @@ function readAndParseCSV(year, mode) {
 
 
 /**
- * Turn the data into floats, skips the text rows
+ * Turn the array into floats, skips the text rows
  */
-function parseFloats(data) {
-  data.forEach((person, i) => {
+function parseFloats(array) {
+  array.forEach((person, i) => {
     if (i == 0) {
       return;
     }
@@ -59,29 +61,31 @@ function parseFloats(data) {
       if (j === 0) {
       } else {
         // if score is empty it returns null, if its not empty it either returns score as float or the score if score is NaN
-        data[i][j] = score ? (isNaN(parseFloat(score)) ? score : parseFloat(score)) : null;
+        array[i][j] = score ? (isNaN(parseFloat(score)) ? score : parseFloat(score)) : null;
       }
     });
   });
+
+  return array;
 }
 
 
 /**
 * transpose array of array so that x becomes y and y becomes x
 */
-function transposeData(data) {
-  const dataRotated = [];
-  const dataLen = data[0].length;
+function transposeData(array) {
+  const arrayRotated = [];
+  const arrayLen = array[0].length;
 
-  for (let i = 0; i < dataLen; i++) {
+  for (let i = 0; i < arrayLen; i++) {
     const tempArray = [];
-    data.forEach((_, j) => {
-      tempArray.push(data[j][i]);
+    array.forEach((_, j) => {
+      tempArray.push(array[j][i]);
     });
-    dataRotated.push(tempArray);
+    arrayRotated.push(tempArray);
   }
 
-  return dataRotated;
+  return arrayRotated;
 }
 
 
@@ -103,11 +107,11 @@ function getMedian(array) {
 /**
 * give the average and median of a persons results
 */
-function aggregateStats(data) {
-  data.forEach((person, i) => {
+function aggregateStats(array) {
+  array.forEach((person, i) => {
     if (i == 0) {
-      data[i].push('Average');
-      data[i].push('Median');
+      array[i].push('Average');
+      array[i].push('Median');
     } else {
       person = person.slice(1);
 
@@ -117,22 +121,22 @@ function aggregateStats(data) {
         sum += score;
       });
 
-      data[i].push((sum / length).toFixed(1));
-      data[i].push(getMedian(person).toFixed(1));
+      array[i].push((sum / length).toFixed(1));
+      array[i].push(getMedian(person).toFixed(1));
     }
   });
 
-  return data;
+  return array;
 }
 
 
 /**
 * creates an array with the total points of each person 
 */
-function totalPoints(data) {
-  dataTotals = [];
+function totalPoints(array) {
+  arrayTotals = [];
 
-  data.forEach((person, i) => {
+  array.forEach((person, i) => {
     let tempArray = [];
     if (i == 0) {
       tempArray = person;
@@ -145,21 +149,21 @@ function totalPoints(data) {
         }
       });
     }
-    dataTotals.push(tempArray);
+    arrayTotals.push(tempArray);
   });
 
-  return dataTotals;
+  return arrayTotals;
 }
 
 
 /**
 * create a html table
 */
-function createHTMLTable(data, tableName) {
+function createHTMLTable(array, tableName) {
   let table = document.getElementById(tableName);
   table.innerHTML = '';
 
-  data.forEach((row, i) => {
+  array.forEach((row, i) => {
     const htmlRow = table.insertRow(i);
     row.forEach((cell, j) => {
       const htmlCell = htmlRow.insertCell(j);
@@ -175,9 +179,9 @@ function createHTMLTable(data, tableName) {
  * Changes the display between showing a table and showing a graph
  */
 function switchDisplay(section, newSet) {
-  switchButton = document.getElementById('switch-' + section);
-  table = document.getElementById(section+'-table');
-  canvas = document.getElementById(section+'-graph');
+  switchButton = document.getElementById('switch_' + section);
+  table = document.getElementById(section+'_table');
+  canvas = document.getElementById(section+'_graph');
 
   if (newSet === 'table'){
     switchButton.className = 'fa-solid fa-chart-line';
@@ -194,14 +198,24 @@ function switchDisplay(section, newSet) {
 
 
 /**
+ * Rotates a given table
+ */
+function rotateTable(section, newSet) {
+  console.log(section, newSet);
+}
+
+
+/**
 * plot a given dataset into a line graph
 */
-function plotData(data, plotName) {
+function plotData(year, mode, section) {
   try {
-    const chart = Chart.getChart(plotName);
+    const chart = Chart.getChart(section+'_graph');
     chart.destroy();
   } catch {
   }
+
+  data = window.data[mode+year+section];
 
   const xValues = data[0].slice(1);
   const datasetValue = [];
@@ -219,7 +233,7 @@ function plotData(data, plotName) {
     })
   });
 
-  chart = new Chart(plotName, {
+  chart = new Chart(section+'_graph', {
     type: "line",
     data: {
       labels: xValues,
@@ -242,20 +256,22 @@ function plotData(data, plotName) {
 function showYear(year, mode) {
   data = readAndParseCSV(year, mode)
     .then(data => {
-      parseFloats(data);
+      window.data[mode+year+'points_per_race'] = parseFloats(data);
 
-      plotData(data, 'points-per-race-graph');
 
-      dataTotals = totalPoints(data);
-      dataTotals = transposeData(dataTotals);
-      createHTMLTable(dataTotals, 'total-points-table');
+      window.data[mode+year+'total_points'] = totalPoints(window.data[mode+year+'points_per_race']);
+      window.data[mode+year+'total_points_trans'] = transposeData(window.data[mode+year+'total_points']);
 
-      dataTotals = transposeData(dataTotals);
-      plotData(dataTotals, 'total-points-graph');
 
-      data = aggregateStats(data);
-      data = transposeData(data);
-      createHTMLTable(data, 'points-per-race-table');
+      //window.data[mode+year+'points_per_race_agg'] = aggregateStats(window.data[mode+year+'points_per_race']);
+      //window.data[mode+year+'points_per_race_agg_trans'] = transposeData(window.data[mode+year+'points_per_race_agg']);
+
+
+      plotData(year, mode,'points_per_race');
+      //createHTMLTable(window.data[mode+year+'points_per_race_agg_trans'], 'points_per_race_table');
+
+      plotData(year, mode, 'points-per-race');
+      //createHTMLTable(window.data[mode+year+'total_points_trans'], 'total_points_table');
 
     });
 }
