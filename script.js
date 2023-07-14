@@ -199,7 +199,7 @@ function switchDisplay(section, newSet) {
   if (newSet === 'table'){
     switchButton.className = 'fa-solid fa-chart-line';
     switchButton.onclick = function(){switchDisplay(section, 'graph')};
-    table.style.display = 'block';
+    table.style.display = 'table';
     canvas.style.display = 'none';
   } else {
     switchButton.className = 'fa-solid fa-table';
