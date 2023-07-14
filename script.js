@@ -1,11 +1,9 @@
 $(document).ready(function() {
   window.data = {};
-  window.rotatePointsPerRace = true;
-  window.rotateTotalPoints = true;
-  window.currentYear = 2022;
-  window.currentMode = 'normal';
+  window.rotate_points_per_race = true;
+  window.rotate_total_points = true;
 
-  loadYear();
+  showYear(2022, 'normal');
 });
 
 
@@ -165,8 +163,15 @@ function totalPoints(array) {
 /**
 * create a html table
 */
-function createHTMLTable(year, mode, section) {
-  let data = window.data[mode+year+section];
+function createHTMLTable(section) {
+  let dataName = section
+  if (section === 'points_per_race') {
+    dataName += '_agg'
+  }
+  if (window['rotate_'+section]) {
+    dataName += '_trans';
+  }
+  let data = window.data[dataName];
 
   let table = document.getElementById(section+'_table');
   table.innerHTML = '';
@@ -179,7 +184,7 @@ function createHTMLTable(year, mode, section) {
     });
   });
 
-  table.rows[0].cells[0].innerHTML = '<i class="fa-solid fa-arrows-rotate"></i>';
+  table.rows[0].cells[0].innerHTML = '<i onclick=rotateTable("'+section+'") class="fa-solid fa-arrows-rotate"></i>';
 }
 
 
@@ -208,22 +213,23 @@ function switchDisplay(section, newSet) {
 /**
  * Rotates a given table
  */
-function rotateTable(section, newSet) {
-  console.log(section, newSet);
+function rotateTable(section) {
+  window['rotate_'+section] = !window['rotate_'+section];
+  createHTMLTable(section);
 }
 
 
 /**
 * plot a given dataset into a line graph
 */
-function plotData(year, mode, section) {
+function plotData(section) {
   try {
     const chart = Chart.getChart(section+'_graph');
     chart.destroy();
   } catch {
   }
 
-  let data = window.data[mode+year+section];
+  let data = window.data[section];
 
   const xValues = data[0].slice(1);
   const datasetValue = [];
@@ -257,36 +263,27 @@ function plotData(year, mode, section) {
   });
 }
 
-function setYear(year, mode) {
-  window.currentYear = year;
-  window.currentMode = mode;
-
-  loadYear;
-}
-
 
 /**
 * show the graphs and tables for a given year and mode of data
 */
-function loadYear() {
-  year = window.currentYear;
-  mode = window.currentMode;
+function showYear(year, mode) {
 
   data = readAndParseCSV(year, mode)
     .then(data => {
-      window.data[mode+year+'points_per_race'] = parseFloats(data);
+      window.data['points_per_race'] = parseFloats(data);
 
-      window.data[mode+year+'total_points'] = totalPoints(window.data[mode+year+'points_per_race']);
-      window.data[mode+year+'total_points_trans'] = transposeData(window.data[mode+year+'total_points']);
+      window.data['total_points'] = totalPoints(window.data['points_per_race']);
+      window.data['total_points_trans'] = transposeData(window.data['total_points']);
 
-      window.data[mode+year+'points_per_race_agg'] = aggregateStats(window.data[mode+year+'points_per_race']);
-      window.data[mode+year+'points_per_race_agg_trans'] = transposeData(window.data[mode+year+'points_per_race_agg']);
+      window.data['points_per_race_agg'] = aggregateStats(window.data['points_per_race']);
+      window.data['points_per_race_agg_trans'] = transposeData(window.data['points_per_race_agg']);
 
-      plotData(year, mode,'points_per_race');
-      createHTMLTable(year, mode,'points_per_race');
+      plotData('points_per_race');
+      createHTMLTable('points_per_race');
 
-      plotData(year, mode, 'total_points');
-      createHTMLTable(year, mode,'total_points');
+      plotData('total_points');
+      createHTMLTable('total_points');
 
     });
 }
