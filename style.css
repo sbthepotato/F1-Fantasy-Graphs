@@ -1,10 +1,10 @@
 :root {
-  --black: #15151e;
-  --grey: #1e1e27;
-  --light-grey: #2b2b33;
-  --grey-text: #949498;
+  --page-bg: #15151e;
+  --content-bg: #1e1e27;
+  --content-bg-alt: #2b2b33;
+  --text: #ffffff;
+  --text-alt: #939397;
   --red: #e10600;
-  --off-white: #f8f5f2;
 }
 
 html {
@@ -14,8 +14,8 @@ html {
   font-smooth: always;
   scroll-behavior: smooth;
   text-align: center;
-  background: var(--black);
-  color: white;
+  background: var(--page-bg);
+  color: var(--text);
 }
 
 body,
@@ -27,13 +27,17 @@ canvas,
 table,
 footer {
   margin: 0;
-  background: var(--grey);
+}
+
+body {
+  padding: 0 0;
 }
 
 h1,
 h2 {
   text-transform: capitalize;
-  color: red;
+  color: var(--red);
+  margin: 75px 10px 20px;
 }
 
 a {
@@ -59,39 +63,50 @@ div.table-container {
   overflow: auto;
 }
 
+i {
+  cursor: pointer;
+}
+
+table,
+canvas {
+  background-color: var(--content-bg);
+  border-radius: 12px;
+}
+
 table {
   margin: 0 auto;
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* --------- */
-/* overview */
-/* ------- */
-section#overview table td,
-section#overview table th {
-  border: 2px solid black;
+table td {
+  border: 2px solid var(--content-bg-alt);
   padding: 10px 10px 0px 10px;
 }
 
-section#overview table tr:first-child th {
+table tr:first-child td {
   font-weight: bolder;
   border-top: 0;
 }
 
-section#overview table tr:last-child td {
+table tr:last-child td {
   border-bottom: 0;
 }
 
-section#overview table tr td:first-child,
-section#overview table tr th:first-child {
+table tr td:first-child {
   font-weight: bolder;
   border-left: 0;
 }
 
-section#overview table tr td:last-child,
-section#overview table tr th:last-child {
+table tr td:last-child {
   border-right: 0;
+}
+
+/* --------- */
+/* overview */
+/* ------- */
+section#overview h1{
+  margin-top: 30px;
 }
 
 section#overview div.podium-wrapper {
@@ -148,19 +163,6 @@ section#overview div.podium-wrapper>div:nth-child(3) {
 /* -------- */
 /* results */
 /* ------ */
-section#results table td,
-section#results table th {
-  border: 2px solid black;
-  padding: 10px 10px 0px 10px;
-}
-
-section#results table tr:first-child td,
-section#results table tr td:first-child,
-section#results table tr th:first-child {
-  font-weight: bolder;
-}
-
-
 section#results table {
   display: none;
 }

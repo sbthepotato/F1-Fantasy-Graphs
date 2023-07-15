@@ -1,3 +1,7 @@
+Chart.defaults.color = '#ffffff';
+Chart.defaults.borderColor = '#2b2b33';
+
+
 $(document).ready(function() {
   window.data = {};
   window.rotate_points_per_race = true;
@@ -258,6 +262,9 @@ function plotData(section) {
         y: {
           min: 0
         }
+      },
+      layout: {
+        padding: 10
       }
     }
   });
@@ -284,6 +291,10 @@ function showYear(year, mode) {
 
       plotData('total_points');
       createHTMLTable('total_points');
+
+      // bad temp fix, TODO: make proper solution
+      document.getElementById('points_per_race_table').style.display = 'none';
+      document.getElementById('total_points_table').style.display = 'none';
 
     });
 }
