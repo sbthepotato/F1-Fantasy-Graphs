@@ -166,3 +166,19 @@ section#overview div.podium-wrapper>div:nth-child(3) {
 section#results table {
   display: none;
 }
+
+section#results table td {
+  padding: 5px;
+}
+
+section#results table.down tr:nth-last-child(2) {
+  border-top: 4px solid var(--content-bg-alt);
+}
+
+section#results table.right tr td:nth-last-child(2) {
+  border-left: 4px solid var(--content-bg-alt);
+}
+
+section#results canvas {
+  max-height: 90vh;
+}

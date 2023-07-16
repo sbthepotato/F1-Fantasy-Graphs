@@ -168,16 +168,20 @@ function totalPoints(array) {
 * create a html table
 */
 function createHTMLTable(section) {
+  let table = document.getElementById(section+'_table');
+
   let dataName = section
   if (section === 'points_per_race') {
     dataName += '_agg'
   }
   if (window['rotate_'+section]) {
     dataName += '_trans';
+    table.className = 'down';
+  } else {
+    table.className = 'right';
   }
   let data = window.data[dataName];
 
-  let table = document.getElementById(section+'_table');
   table.innerHTML = '';
 
   data.forEach((row, i) => {
