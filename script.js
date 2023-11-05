@@ -2,8 +2,7 @@
 const name_pointsPerRace = 'points_per_race';
 const name_TotalPoints = 'total_points';
 
-const name_graph = 'graph';
-const name_table = 'table';
+const sections_list = [name_pointsPerRace, name_TotalPoints]
 
 /**
  * the color rotation for graphs
@@ -57,6 +56,7 @@ function readAndParseCSV(year, mode) {
     })
     .catch(error => {
       console.log('ERROR:', error);
+      window.alert('Something went wrong when trying to read the csv, check the console to see the error');
     });
 }
 
@@ -210,14 +210,14 @@ function switchDisplay(section, newSet) {
   table = document.getElementById(section + '_table');
   canvas = document.getElementById(section + '_graph');
 
-  if (newSet === name_table) {
+  if (newSet === 'table') {
     switchButton.className = 'fa-solid fa-chart-line';
-    switchButton.onclick = function () { switchDisplay(section, name_graph) };
-    table.style.display = name_table;
+    switchButton.onclick = function () { switchDisplay(section, 'graph') };
+    table.style.display = 'table';
     canvas.style.display = 'none';
   } else {
     switchButton.className = 'fa-solid fa-table';
-    switchButton.onclick = function () { switchDisplay(section, name_table) };
+    switchButton.onclick = function () { switchDisplay(section, 'table') };
     table.style.display = 'none';
     canvas.style.display = 'block';
   }
@@ -280,12 +280,18 @@ function plotData(section) {
   });
 }
 
+/*
+ * reset the displays after switching year
+ */
+function setDisplayAfterYearChange() {
+  sections_list.forEach((section, _) => {
+    switchButton = document.getElementById('switch_' + section);
+    table = document.getElementById(section + '_table');
 
-function setDisplayAfterYearChange(section) {
-
-
-  document.document.getElementById(section + '_table').style.display = 'none';
-
+    switchButton.className = 'fa-solid fa-table';
+    switchButton.onclick = function () { switchDisplay(section, 'table') };
+    table.style.display = 'none';
+  });
 }
 
 
@@ -298,8 +304,8 @@ function showYear(year, mode) {
     .then(data => {
       window.data[name_pointsPerRace] = parseFloats(data);
 
-      window.data['total_points'] = calcTotalPoints(window.data[name_pointsPerRace]);
-      window.data['total_points_trans'] = transposeData(window.data['total_points']);
+      window.data[name_TotalPoints] = calcTotalPoints(window.data[name_pointsPerRace]);
+      window.data['total_points_trans'] = transposeData(window.data[name_TotalPoints]);
 
       window.data['points_per_race_agg'] = calcAggregateStats(window.data[name_pointsPerRace]);
       window.data['points_per_race_agg_trans'] = transposeData(window.data['points_per_race_agg']);
@@ -307,12 +313,10 @@ function showYear(year, mode) {
       plotData(name_pointsPerRace);
       createHTMLTable(name_pointsPerRace);
 
-      plotData('total_points');
-      createHTMLTable('total_points');
+      plotData(name_TotalPoints);
+      createHTMLTable(name_TotalPoints);
 
-      // bad temp fix, TODO: make proper solution
-      document.getElementById('points_per_race_table').style.display = 'none';
-      document.getElementById('total_points_table').style.display = 'none';
+      setDisplayAfterYearChange();
 
     });
 }

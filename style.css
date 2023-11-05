@@ -163,6 +163,13 @@ section#overview div.podium-wrapper>div:nth-child(3) {
 /* -------- */
 /* results */
 /* ------ */
+section#results h1>i {
+  border: 2px dashed var(--content-bg-alt);
+  padding: 5px;
+  border-radius: 10px;
+}
+
+
 section#results table {
   display: none;
 }
