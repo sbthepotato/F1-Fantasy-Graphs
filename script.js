@@ -35,7 +35,7 @@ $(document).ready(function () {
   window.rotate_points_per_race = true;
   window.rotate_total_points = true;
 
-  showYear(2022, 'normal');
+  showYear(2023, 'normal');
 });
 
 
