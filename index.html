@@ -1,109 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>F1 Fantasy League Results</title>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>F1 Fantasy League Results</title>
+    <meta name="robots" content="noindex" />
 
-  <meta name="robots" content="noindex">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="style.css">
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js" integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
+      integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
+      integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <script src="./script.js"></script>
+  </head>
 
-</head>
+  <body>
+    <section id="overview">
+      <h1>F1 Fantasy League results</h1>
+      <div class="table-container">
+        <table>
+          <tr>
+            <td></td>
+            <td>Normal</td>
+            <td>Hardmode</td>
+          </tr>
+          <tr>
+            <td>2023</td>
+            <td>
+              <a href="javascript:showYear(2023, 'normal')">
+                <div class="podium-wrapper">
+                  <div>Aaron</div>
+                  <div>Julian</div>
+                  <div>Stephan</div>
+                </div>
+              </a>
+            </td>
+            <td>
+              <a href="javascript:showYear(2023, 'hard')">
+                <div class="podium-wrapper">
+                  <div>Stephan</div>
+                  <div>Aaron</div>
+                  <div>Julian</div>
+                </div>
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td>2022</td>
+            <td>
+              <a href="javascript:showYear(2022, 'normal')">
+                <div class="podium-wrapper">
+                  <div>Stephan</div>
+                  <div>Julian</div>
+                  <div>Maxi</div>
+                </div>
+              </a>
+            </td>
+            <td>
+              <a href="javascript:showYear(2022, 'hard')">
+                <div class="podium-wrapper">
+                  <div>Hauke</div>
+                  <div>Julian/Stephan</div>
+                  <div>Audun</div>
+                </div>
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td>2021</td>
+            <td>
+              <a href="javascript:showYear(2021, 'normal')">
+                <div class="podium-wrapper">
+                  <div>Stephan</div>
+                  <div>Julian</div>
+                  <div>Marcel</div>
+                </div>
+              </a>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </section>
 
-<body>
-  <section id="overview">
-    <h1>F1 Fantasy League results</h1>
-    <div class="table-container">
-      <table>
-        <tr>
-          <td></td>
-          <td>Normal</td>
-          <td>Hardmode</td>
-        </tr>
-        <tr>
-          <td>2023</td>
-          <td>
-            <a href="javascript:showYear(2023, 'normal')">
-              <div class="podium-wrapper">
-                <div>Aaron</div>
-                <div>Julian</div>
-                <div>Stephan</div>
-              </div>
-            </a>
-          </td>
-          <td>
-            <a href="javascript:showYear(2023, 'hard')">
-              <div class="podium-wrapper">
-                <div>Stephan</div>
-                <div>Aaron</div>
-                <div>Julian</div>
-              </div>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td>2022</td>
-          <td>
-            <a href="javascript:showYear(2022, 'normal')">
-              <div class="podium-wrapper">
-                <div>Stephan</div>
-                <div>Julian</div>
-                <div>Maxi</div>
-              </div>
-            </a>
-          </td>
-          <td>
-            <a href="javascript:showYear(2022, 'hard')">
-              <div class="podium-wrapper">
-                <div>Hauke</div>
-                <div>Julian/Stephan</div>
-                <div>Audun</div>
-              </div>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td>2021</td>
-          <td>
-            <a href="javascript:showYear(2021, 'normal')">
-              <div class="podium-wrapper">
-                <div>Stephan</div>
-                <div>Julian</div>
-                <div>Marcel</div>
-              </div>
-            </a>
-          </td>
-          <td></td>
-        </tr>
-      </table>
-    </div>
-  </section>
+    <section id="results">
+      <h1>
+        points per race &nbsp; &nbsp;
+        <i
+          id="switch_points_per_race"
+          onclick="switchDisplay('points_per_race', 'table')"
+          class="fa-solid fa-table"
+        ></i>
+      </h1>
+      <div class="table-container">
+        <table id="points_per_race_table"></table>
+      </div>
+      <canvas id="points_per_race_graph"></canvas>
 
-
-  <section id="results">
-
-    <h1>points per race &nbsp; &nbsp; <i id="switch_points_per_race" onclick="switchDisplay('points_per_race', 'table')"
-        class="fa-solid fa-table"></i></h1>
-    <div class="table-container">
-      <table id="points_per_race_table"></table>
-    </div>
-    <canvas id="points_per_race_graph"></canvas>
-
-    <h1>points over the season &nbsp; &nbsp; <i id="switch_total_points"
-        onclick="switchDisplay('total_points', 'table')" class="fa-solid fa-table"></i></h1>
-    <div class="table-container">
-      <table id="total_points_table"></table>
-    </div>
-    <canvas id="total_points_graph"></canvas>
-  </section>
-
-</body>
-
+      <h1>
+        points over the season &nbsp; &nbsp;
+        <i
+          id="switch_total_points"
+          onclick="switchDisplay('total_points', 'table')"
+          class="fa-solid fa-table"
+        ></i>
+      </h1>
+      <div class="table-container">
+        <table id="total_points_table"></table>
+      </div>
+      <canvas id="total_points_graph"></canvas>
+    </section>
+  </body>
 </html>

@@ -105,7 +105,7 @@ table tr td:last-child {
 /* --------- */
 /* overview */
 /* ------- */
-section#overview h1{
+section#overview h1 {
   margin-top: 30px;
 }
 
@@ -118,7 +118,7 @@ section#overview div.podium-wrapper {
   height: 60px;
 }
 
-section#overview div.podium-wrapper>div {
+section#overview div.podium-wrapper > div {
   float: left;
   text-align: center;
   width: 100px;
@@ -132,44 +132,43 @@ section#overview div.podium-wrapper>div {
   white-space: nowrap;
 }
 
-section#overview div.podium-wrapper>div:nth-child(2) {
+section#overview div.podium-wrapper > div:nth-child(2) {
   background-color: gold;
   height: 50px;
-  left: 100px
+  left: 100px;
 }
 
-section#overview div.podium-wrapper>div:nth-child(2):before {
+section#overview div.podium-wrapper > div:nth-child(2):before {
   content: "";
   margin-left: -100%;
 }
 
-section#overview div.podium-wrapper>div:nth-child(2):after {
+section#overview div.podium-wrapper > div:nth-child(2):after {
   content: "";
   margin-right: -100%;
 }
 
-section#overview div.podium-wrapper>div:nth-child(1) {
+section#overview div.podium-wrapper > div:nth-child(1) {
   background-color: silver;
   height: 35px;
 }
 
-section#overview div.podium-wrapper>div:nth-child(3) {
-  background-color: #8C7853;
+section#overview div.podium-wrapper > div:nth-child(3) {
+  background-color: #8c7853;
   height: 25px;
-  left: 200px
+  left: 200px;
 }
-
 
 /* -------- */
 /* results */
 /* ------ */
-section#results h1>i {
+section#results h1 > i {
   opacity: 0.7;
   color: var(--text);
   transition: opacity 0.5s;
 }
 
-section#results h1>i:hover{
+section#results h1 > i:hover {
   opacity: 1;
   color: var(--text);
 }
