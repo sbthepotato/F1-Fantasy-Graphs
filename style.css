@@ -63,10 +63,6 @@ div.table-container {
   overflow: auto;
 }
 
-i {
-  cursor: pointer;
-}
-
 table,
 canvas {
   background-color: var(--content-bg);
@@ -100,6 +96,56 @@ table tr td:first-child {
 
 table tr td:last-child {
   border-right: 0;
+}
+
+/* ------------- */
+/* toggle group */
+/* ----------- */
+h1>span>form{
+  display: inline-block;
+}
+
+.toggle-field {
+  display: inline-flex;
+  
+  overflow: hidden;
+}
+
+.toggle-field input {
+  position: absolute !important;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  width: 1px;
+  border: 0;
+  overflow: hidden;
+}
+
+.toggle-field label {
+  background-color: var(--content-bg-alt);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1;
+  text-align: center;
+  padding: 8px 16px;
+  margin-right: -1px;
+  transition: all 0.5s ease-in-out;
+}
+
+.toggle-field label:hover {
+  cursor: pointer;
+}
+
+.toggle-field input:checked + label {
+  background-color: var(--red);
+  box-shadow: none;
+}
+
+.toggle-field label:first-of-type {
+  border-radius: 4px 0 0 4px;
+}
+
+.toggle-field label:last-of-type {
+  border-radius: 0 4px 4px 0;
 }
 
 /* --------- */
@@ -162,13 +208,13 @@ section#overview div.podium-wrapper > div:nth-child(3) {
 /* -------- */
 /* results */
 /* ------ */
-section#results h1 > i {
+section#results h1 a {
   opacity: 0.7;
   color: var(--text);
   transition: opacity 0.5s;
 }
 
-section#results h1 > i:hover {
+section#results h1 a:hover {
   opacity: 1;
   color: var(--text);
 }

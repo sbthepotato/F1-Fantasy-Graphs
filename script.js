@@ -35,6 +35,9 @@ $(document).ready(function () {
   window.rotate_total_points = true;
 
   showYear(2023, "normal");
+
+  switchDisplay("points_per_race");
+  switchDisplay("total_points");
 });
 
 /**
@@ -205,25 +208,27 @@ function createHTMLTable(section) {
 /**
  * Changes the display between showing a table and showing a graph
  */
-function switchDisplay(section, newSet) {
-  switchButton = document.getElementById("switch_" + section);
-  table = document.getElementById(section + "_table");
-  canvas = document.getElementById(section + "_graph");
+function switchDisplay(section) {
+  let selectedDisplay = document.querySelector(
+    "#" + section + "_radiogroup input:checked"
+  ).value;
 
-  if (newSet === "table") {
-    switchButton.className = "fa-solid fa-chart-line";
-    switchButton.onclick = function () {
-      switchDisplay(section, "graph");
-    };
+  let table = document.getElementById(section + "_table");
+  let canvas = document.getElementById(section + "_graph");
+  let h2h = document.getElementById(section + "_h2h_table");
+
+  if (selectedDisplay === "table") {
     table.style.display = "table";
     canvas.style.display = "none";
-  } else {
-    switchButton.className = "fa-solid fa-table";
-    switchButton.onclick = function () {
-      switchDisplay(section, "table");
-    };
+    h2h.style.display = "none";
+  } else if (selectedDisplay === "graph") {
     table.style.display = "none";
     canvas.style.display = "block";
+    h2h.style.display = "none";
+  } else if (selectedDisplay === "h2h") {
+    table.style.display = "none";
+    canvas.style.display = "none";
+    h2h.style.display = "block";
   }
 }
 
