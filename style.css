@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=SUSE:wght@100..800&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+
 :root {
   --page-bg: #15151e;
   --content-bg: #1e1e27;
@@ -8,7 +10,7 @@
 }
 
 html {
-  /* font-family: 'Comfortaa', cursive, serif; */
+  font-family: "IBM Plex Sans", sans-serif;
   text-rendering: optimizeLegibility;
   width: 100%;
   font-smooth: always;
@@ -38,19 +40,6 @@ h2 {
   text-transform: capitalize;
   color: var(--red);
   margin: 75px 10px 20px;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-a:visited {
-  color: inherit;
-}
-
-a:hover {
-  text-decoration: underline;
 }
 
 section {
@@ -101,13 +90,12 @@ table tr td:last-child {
 /* ------------- */
 /* toggle group */
 /* ----------- */
-h1>span>form{
+h1 > span > form {
   display: inline-block;
 }
 
 .toggle-field {
   display: inline-flex;
-  
   overflow: hidden;
 }
 
@@ -162,6 +150,10 @@ section#overview div.podium-wrapper {
   position: relative;
   width: 300px;
   height: 60px;
+}
+
+section#overview div.podium-wrapper:hover {
+  cursor: pointer;
 }
 
 section#overview div.podium-wrapper > div {

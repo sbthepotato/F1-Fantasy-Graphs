@@ -9,26 +9,19 @@
 
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="style.css" />
 
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
-      integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"
+      integrity="sha512-ZwR1/gSZM3ai6vCdI+LVF1zSq/5HznD3ZSTk7kajkaj4D292NLuduDCO1c/NT8Id+jE58KYLKT7hXnbtryGmMg=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
-      integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script src="./script.js"></script>
   </head>
 
   <body>
@@ -42,57 +35,60 @@
             <td>Hardmode</td>
           </tr>
           <tr>
-            <td>2023</td>
+            <td>2024</td>
             <td>
-              <a href="javascript:showYear(2023, 'normal')">
-                <div class="podium-wrapper">
-                  <div>Aaron</div>
-                  <div>Julian</div>
-                  <div>Stephan</div>
-                </div>
-              </a>
+              <div class="podium-wrapper" onclick="showYear(2024, 'normal')">
+                <p>In progress...</p>
+              </div>
             </td>
             <td>
-              <a href="javascript:showYear(2023, 'hard')">
-                <div class="podium-wrapper">
-                  <div>Stephan</div>
-                  <div>Aaron</div>
-                  <div>Julian</div>
-                </div>
-              </a>
+              <div class="podium-wrapper" onclick="showYear(2024, 'hard')">
+                <p>In progress...</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>2023</td>
+            <td>
+              <div class="podium-wrapper" onclick="showYear(2023, 'normal')">
+                <div>Aaron</div>
+                <div>Julian</div>
+                <div>Stephan</div>
+              </div>
+            </td>
+            <td>
+              <div class="podium-wrapper" onclick="showYear(2023, 'hard')">
+                <div>Stephan</div>
+                <div>Aaron</div>
+                <div>Julian</div>
+              </div>
             </td>
           </tr>
           <tr>
             <td>2022</td>
             <td>
-              <a href="javascript:showYear(2022, 'normal')">
-                <div class="podium-wrapper">
-                  <div>Stephan</div>
-                  <div>Julian</div>
-                  <div>Maxi</div>
-                </div>
-              </a>
+              <div class="podium-wrapper" onclick="showYear(2022, 'normal')">
+                <div>Stephan</div>
+                <div>Julian</div>
+                <div>Maxi</div>
+              </div>
             </td>
             <td>
-              <a href="javascript:showYear(2022, 'hard')">
-                <div class="podium-wrapper">
-                  <div>Hauke</div>
-                  <div>Julian/Stephan</div>
-                  <div>Audun</div>
-                </div>
-              </a>
+              <div class="podium-wrapper" onclick="showYear(2022, 'hard')">
+                <div>Hauke</div>
+                <div>Julian/Stephan</div>
+                <div>Audun</div>
+              </div>
             </td>
           </tr>
           <tr>
             <td>2021</td>
             <td>
-              <a href="javascript:showYear(2021, 'normal')">
-                <div class="podium-wrapper">
-                  <div>Stephan</div>
-                  <div>Julian</div>
-                  <div>Marcel</div>
-                </div>
-              </a>
+              <div class="podium-wrapper" onclick="showYear(2021, 'normal')">
+                <div>Stephan</div>
+                <div>Julian</div>
+                <div>Marcel</div>
+              </div>
             </td>
             <td></td>
           </tr>
@@ -172,5 +168,7 @@
       </div>
       <canvas id="total_points_graph"></canvas>
     </section>
+
+    <script src="./script.js"></script>
   </body>
 </html>

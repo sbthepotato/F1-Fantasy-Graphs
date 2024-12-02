@@ -26,20 +26,6 @@ const colors = [
   "#FFFFFF", // White
 ];
 
-Chart.defaults.color = "#ffffff";
-Chart.defaults.borderColor = "#2b2b33";
-
-$(document).ready(function () {
-  window.data = {};
-  window.rotate_points_per_race = true;
-  window.rotate_total_points = true;
-
-  showYear(2023, "normal");
-
-  switchDisplay("points_per_race");
-  switchDisplay("total_points");
-});
-
 /**
  * read a csv file and turn it into an array
  */
@@ -150,7 +136,7 @@ function calcAggregateStats(array) {
  * creates an array with the total points of each person
  */
 function calcTotalPoints(array) {
-  retArray = [];
+  let retArray = [];
 
   array.forEach((person, i) => {
     let tempArray = [];
@@ -220,11 +206,15 @@ function switchDisplay(section) {
   if (selectedDisplay === "table") {
     table.style.display = "table";
     canvas.style.display = "none";
-    h2h.style.display = "none";
+    if (h2h) {
+      h2h.style.display = "none";
+    }
   } else if (selectedDisplay === "graph") {
     table.style.display = "none";
     canvas.style.display = "block";
-    h2h.style.display = "none";
+    if (h2h) {
+      h2h.style.display = "none";
+    }
   } else if (selectedDisplay === "h2h") {
     table.style.display = "none";
     canvas.style.display = "none";
@@ -244,6 +234,8 @@ function rotateTable(section) {
  * plot a given dataset into a line graph
  */
 function plotData(section) {
+  const ctx = document.getElementById(section + "_graph");
+
   try {
     const chart = Chart.getChart(section + "_graph");
     chart.destroy();
@@ -267,8 +259,12 @@ function plotData(section) {
     });
   });
 
-  chart = new Chart(section + "_graph", {
+  new Chart(ctx, {
     type: "line",
+    defaults: {
+      color: "#ffffff",
+      borderColor: "#2b2b33",
+    },
     data: {
       labels: xValues,
       datasets: datasetValue,
@@ -291,14 +287,16 @@ function plotData(section) {
  */
 function setDisplayAfterYearChange() {
   sections_list.forEach((section, _) => {
-    switchButton = document.getElementById("switch_" + section);
-    table = document.getElementById(section + "_table");
+    let switchButton = document.getElementById("switch_" + section);
+    let table = document.getElementById(section + "_table");
 
-    switchButton.className = "fa-solid fa-table";
-    switchButton.onclick = function () {
-      switchDisplay(section, "table");
-    };
-    table.style.display = "none";
+    if (switchButton) {
+      switchButton.className = "fa-solid fa-table";
+      switchButton.onclick = function () {
+        switchDisplay(section, "table");
+      };
+      table.style.display = "none";
+    }
   });
 }
 
@@ -332,3 +330,12 @@ function showYear(year, mode) {
     setDisplayAfterYearChange();
   });
 }
+
+window.data = {};
+window.rotate_points_per_race = true;
+window.rotate_total_points = true;
+
+showYear(2024, "normal");
+
+switchDisplay("points_per_race");
+switchDisplay("total_points");
