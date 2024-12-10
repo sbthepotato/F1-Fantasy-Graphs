@@ -157,6 +157,7 @@ section#overview div.podium-wrapper:hover {
 }
 
 section#overview div.podium-wrapper > div {
+  color: var(--page-bg);
   float: left;
   text-align: center;
   width: 100px;
@@ -200,6 +201,10 @@ section#overview div.podium-wrapper > div:nth-child(3) {
 /* -------- */
 /* results */
 /* ------ */
+section#results {
+  font-size: medium;
+}
+
 section#results h1 a {
   opacity: 0.7;
   color: var(--text);
@@ -216,7 +221,7 @@ section#results table {
 }
 
 section#results table td {
-  padding: 5px;
+  padding: 8px;
 }
 
 section#results table.down tr:nth-last-child(2) {

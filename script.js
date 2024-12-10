@@ -236,6 +236,12 @@ function rotateTable(section) {
 function plotData(section) {
   const ctx = document.getElementById(section + "_graph");
 
+  let hidden = false;
+
+  if (ctx.style.display === "none") {
+    hidden = true;
+  }
+
   try {
     const chart = Chart.getChart(section + "_graph");
     chart.destroy();
@@ -280,6 +286,10 @@ function plotData(section) {
       },
     },
   });
+
+  if (hidden) {
+    ctx.style.display = "none";
+  }
 }
 
 /*
